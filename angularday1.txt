@@ -1,0 +1,517 @@
+1) <div style="text-align:center">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+
+     <h2><input id="date" #date type="date" >
+      <button btnCheckbox value="multi" id="multi" (click)="CalculateAge(date.value)">Get Age</button></h2>
+    <div *ngIf="showtext==true" id="age">your age is {{age}}</div>
+    </div>
+
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title = 'Age! ';
+  public showtext=false;
+  age:number;
+  public CalculateAge(value){
+var today=new Date();
+var birthday=new Date(value);
+var age=today.getFullYear()-birthday.getFullYear();
+var m=today.getMonth()-birthday.getMonth();
+if(m<0||(m===0 && today.getDate()<birthday.getDate())){
+  age--;
+}
+   this.age=age;
+    this.showtext=true;
+  }
+}
+
+
+
+2)<div style="text-align:center">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+
+     <h2><input id="num1" #num1 type="number" >
+      <input id="num2" #num2 type="number" >
+        <button type="submit" (click)='Calculate(num1.value,num2.value)'>Multiply</button></h2>
+        <div *ngIf="showtext==true" id="num"> {{num}}</div>
+    </div>
+
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title = 'Calculator ';
+  public showtext=false;
+  num:number;
+  public Calculate(num1,num2){
+    var c=+num1 * +num2;
+this.num=c;
+this.showtext=true;
+  }
+}
+
+
+3)<div style="text-align:center">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+
+     <h2><input id="num1" #num1 type="number" ><br><br>
+      <input id="num2" #num2 type="number" ><br><br>
+        <button type="submit" (click)='Calculate(num1.value,num2.value)'>Multiply</button>
+        <button type="submit" (click)='divide(num1.value,num2.value)'>divide</button></h2>
+        
+        <div *ngIf="showtext==true" id="num"> {{num}}</div>
+    </div>
+
+------------------------------------
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title = 'Calculator ';
+  public showtext=false;
+  num:number;
+  public Calculate(num1,num2){
+    var c=+num1 * +num2;
+this.num=c;
+this.showtext=true;
+  }
+  public divide(num1,num2){
+    var c=+num1 / +num2;
+this.num=c;
+this.showtext=true;
+  }
+}
+
+
+4)<div class="outer-outlet">
+  <router-outlet></router-outlet>
+</div>
+
+--------------------------------------
+5)
+
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title = 'welcome to Q2';
+
+ public name:string;
+ constructor(private router:Router){}
+  public display1(uname)
+  {this.name=uname;
+localStorage.setItem("user",this.name);
+this.router.navigateByUrl("\register");
+  }
+  
+}
+--------------------------------------
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
+
+
+const routes: Routes = [{path:'\register',component:RegisterComponent}];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+-----------------------------------------------------
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.styl']
+})
+export class RegisterComponent  {
+public name:String;
+  constructor() { 
+this.name=localStorage.getItem("user");
+  
+  }
+}
+
+----------------------------------------------------
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:right">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br></div>
+<div><table>
+  <tr><td>username</td><td><input type="text"  id="uname" #uname></td></tr>
+  <tr><td>password</td><td><input type="password"  id="password" #password></td></tr>
+  <tr><td>mobile</td><td><input type="text"  id="mobile" #mobile></td></tr>
+  <tr><td>email</td><td><input type="text"  id="email" #email></td></tr>
+  <tr><td> <button type="submit" (click)='display1(uname.value)'>register</button></td><td></td></tr>
+ 
+</table></div>
+
+<div class="outer-outlet">
+  <router-outlet></router-outlet>
+</div>
+
+-----------------------------------------------
+<div>
+  welcome system admin{{name}}
+</div>
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+6)<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:right">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+    </div>
+  
+  
+    
+  <a [routerLink]="['\register']">register</a>
+
+<div class="outer-outlet">
+  <router-outlet></router-outlet>
+</div>
+
+-------------------------------------
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
+
+
+const routes: Routes = [{path:'\register',component:RegisterComponent}];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+-----------------------------------
+<div><table>
+  <tr><td>username</td><td><input type="text"  id="uname" #uname></td></tr>
+  <tr><td>password</td><td><input type="password"  id="password" #password></td></tr>
+  <tr><td>mobile</td><td><input type="text"  id="mobile" #mobile></td></tr>
+  <tr><td>email</td><td><input type="text"  id="email" #email></td></tr>
+  <tr><td> <button type="submit" (click)='display1(uname.value)'>register</button></td><td></td></tr>
+ 
+</table></div>
+---------------------------------------
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.styl']
+})
+export class RegisterComponent  {
+
+  public display1(value){
+alert("registered successfully"+value);
+  }
+  
+  
+}
+-------------------------------------
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:right">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+    </div>
+  
+  
+    
+  <a [routerLink]="['\register']">register</a>
+
+<div class="outer-outlet">
+  <router-outlet></router-outlet>
+</div>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+7)<div style="text-align:right">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+    </div>
+  <div>
+    <input type="text" id="user" #user name="user"><br>
+  <input type="password" id="pass" #pass name="pass"><br>
+  <button type="submit" (click)='validate(user.value)'>login</button>
+  </div>
+  <div class="outer-outlet">
+  <router-outlet></router-outlet>
+</div>
+
+-----------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.styl']
+})
+export class HomeComponent {
+
+  title = 'welcome to Q2';
+
+  constructor(private router:Router){}
+   
+  public validate(value)
+  {
+  
+  localStorage.setItem("user",value);
+  this.router.navigateByUrl("\register");
+   }
+
+}
+----------------------------------------------
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+
+
+const routes: Routes = [{path:'',component:HomeComponent},{path:'\register',component:RegisterComponent}];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+------------------------------------------------------
+<div class="outer-outlet">
+<router-outlet></router-outlet>
+</div>
+------------------------------------------------------
+<div>
+  welcome {{user}}
+</div>
+------------------------------------------------------
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.styl']
+})
+export class RegisterComponent  {
+ public user:string;
+ constructor()
+ {
+   this.user=localStorage.getItem("user");
+ }
+  
+  
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+8)<div style="text-align:right">
+    <h1 style="color: blueviolet">
+       {{ title }}</h1><br>
+      </div>
+    <div>
+      <input type="text" id="user" #user name="user"><br>
+    <input type="password" id="pass" #pass name="pass"><br>
+    <button type="submit" (click)='login(user.value)'>Log in</button><br>
+        
+    email entered is:<div *ngIf="showtext==true" id="name"> {{name}}</div>
+    </div>
+    
+  --------------------------------------
+import { Component } from '@angular/core';
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  public name:string;
+  title = 'welcome to Q2';
+  public showtext=false;
+public login(value){
+this.name=value;
+this.showtext=true;
+ }
+
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+9)<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:left">
+    <h1 style="color: blueviolet">
+       {{ title }}</h1><br>
+      </div>
+    
+        <a [routerLink]="['\home']">home</a>
+
+        <div class="outer-outlet">
+          <router-outlet></router-outlet>
+        </div>
+    
+    --------------------------------------
+import { Component } from '@angular/core';
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title="welcome Q9";
+}
+-----------------------------------------
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './home/home.component';
+
+
+const routes: Routes = [{path:'\home',component:HomeComponent}];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+--------------------------------------------
+<div style="text-align:right">
+  <h1 style="color: blueviolet">
+     {{ title }}</h1><br>
+    </div>
+  <div>
+    <input type="text" id="user" #user name="user"><br>
+  <input type="password" id="pass" #pass name="pass"><br>
+  <button type="submit" (click)='login(user.value)'>Log in</button><br>
+      
+ <div *ngIf="showtext==true" id="name"> Welcome {{name}}</div>
+ 
+  </div>
+  ------------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.styl']
+})
+export class HomeComponent {
+ public name:string;
+  public showtext=false;
+public login(value){
+this.name=value;
+this.showtext=true;
+ }
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+10)<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:left">
+    <h1 style="color: blueviolet">
+       {{ title }}</h1><br>
+      </div>
+    enter a number to convert into farenheit<input type="number" id="num" #num>
+    <button type="submit" (click)='calculate(num.value)'>convert</button><br>
+    <div> the fahrenheit of {{num.value}}C is  {{res}} </div> 
+     
+    
+  ----------------------------------
+import { Component } from '@angular/core';
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title="welcome Q10";
+ public res:number;
+  public calculate(value){
+this.res=value*1.8+32;
+  }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
+11)<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:left">
+    <h1 style="color: blueviolet">
+       {{ title }}</h1><br>
+      </div>
+    enter a number to convert into percentage<input type="number" id="num" #num>
+    <button type="submit" (click)='calculate(num.value)'>convert</button><br>
+    <div> the percentage of {{num.value}} C is  {{res}}% </div> 
+     
+    --------------------------------
+import { Component } from '@angular/core';
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title="welcome Q10";
+ public res:number;
+  public calculate(value){
+this.res=value*100;
+  }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+12)import { Component } from '@angular/core';
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.styl']
+})
+export class AppComponent {
+  title="welcome to Q12";
+ public res:string;
+  public calculate(value){
+    if(value>=18)
+this.res="eligible";
+else
+this.res="not eligible";
+  }
+}
+--------------------------------------
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:left">
+    <h1 style="color: blueviolet">
+       {{ title }}</h1><br>
+      </div>
+  Enter Age: <input type="number" id="num" #num>
+    <button type="submit" (click)='calculate(num.value)'>convert</button><br>
+    <div>   {{res}} </div> 
+     
+    
+
+
+
